@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_answer.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcamhi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/30 15:33:49 by jcamhi            #+#    #+#             */
+/*   Updated: 2017/08/30 15:34:17 by jcamhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <client.h>
 
-void	free_answer(t_answer answer)
+void		free_answer(t_answer answer)
 {
 	ft_strdel(&(answer.commentaire));
 	ft_strdel(&(answer.str));
@@ -20,9 +32,9 @@ static char	*get_com(char *str)
 
 t_answer	get_answer(t_data *data)
 {
-	t_answer ret;
-	char	*str;
-	int	i;
+	t_answer	ret;
+	char		*str;
+	int			i;
 
 	ret.error = -1;
 	ret.str = NULL;
@@ -35,7 +47,7 @@ t_answer	get_answer(t_data *data)
 	remove_cr(str);
 	ret.str = str;
 	if ((ret.code = ft_atoi(str)) == 0)
-		return ret;
+		return (ret);
 	if ((ret.commentaire = get_com(str)) == NULL)
 		return (ret);
 	ret.error = 1;
