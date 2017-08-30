@@ -80,10 +80,7 @@ int open_wrapper(t_data *data, const char *path, int oflag, int mode)
 	if (!path)
 		return (-1);
 	if (!can_be_oppened(path, data->exec_path))
-	{
-		ft_printf("cant\n");
 		return (-1);
-	}
 	if (mode)
 		fd = open(path, oflag, mode);
 	else
