@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_cmd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/30 15:34:55 by jcamhi            #+#    #+#             */
+/*   Updated: 2017/08/30 15:35:19 by jcamhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <client.h>
 
-void	free_cmd(t_cmd cmd)
+void		free_cmd(t_cmd cmd)
 {
 	if (cmd.cmd_tab)
 		free_double_tab(cmd.cmd_tab);
 }
 
-int	get_value(char *str)
+static int	get_value(char *str)
 {
 	if (ft_strequ(str, NAME_LOGIN))
 		return (VALUE_LOGIN);
@@ -29,7 +41,7 @@ int	get_value(char *str)
 	return (-1);
 }
 
-int	parse_cmd(t_data *data, char *str)
+int			parse_cmd(t_data *data, char *str)
 {
 	t_cmd	*cmd;
 
@@ -38,6 +50,6 @@ int	parse_cmd(t_data *data, char *str)
 	if ((cmd->cmd_tab = ft_special_split(str)) == NULL)
 		return (0);
 	if ((cmd->cmd_nbr = get_value(cmd->cmd_tab[0])) == -1)
-		return (0); //TODO: free things ?
+		return (0);
 	return (1);
 }
