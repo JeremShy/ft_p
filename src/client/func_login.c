@@ -6,7 +6,7 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 15:46:10 by jcamhi            #+#    #+#             */
-/*   Updated: 2017/08/30 15:48:09 by jcamhi           ###   ########.fr       */
+/*   Updated: 2017/08/30 15:53:41 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void		func_login(t_data *data)
 	free(send);
 	answer = get_answer(data);
 	if (check_cases(data, answer, password))
-		free_answer(answer);
+		return ;
 	pass_part(data, password);
 }
