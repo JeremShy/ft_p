@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/30 16:30:31 by jcamhi            #+#    #+#             */
+/*   Updated: 2017/08/30 16:33:19 by jcamhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CLIENT_H
 # define CLIENT_H
 
@@ -66,64 +78,63 @@
 
 typedef struct termios	t_termios;
 
-typedef struct	s_cmd {
+typedef struct			s_cmd {
 	int		cmd_nbr;
 	char	**cmd_tab;
-}				t_cmd;
+}						t_cmd;
 
-typedef struct	s_data {
+typedef struct			s_data {
 	char	*prompt;
 	char	*cmd_str;
-	// char	**cmd_tab;
-	t_cmd cmd;
+	t_cmd	cmd;
 	char	*machine;
 	int		port;
 	int		socket;
-	void				(**tab)(struct s_data *);
+	void	(**tab)(struct s_data *);
 	int		error;
-}				t_data;
+}						t_data;
 
-typedef struct s_answer {
-	int	code;
+typedef struct			s_answer {
+	int		code;
 	char	*commentaire;
-	int	error;
+	int		error;
 	char	*str;
-}				t_answer;
+}						t_answer;
 
-typedef void	(*t_command_func)(t_data*);
+typedef void			(*t_command_func)(t_data*);
 
+char					**ft_special_split(char const *s);
+int						parse_cmd(t_data *data, char *str);
+void					pem(char *filename, char *message);
+int						pemr(char *filename, char *message);
+void					remove_cr(char *str);
+t_answer				get_answer(t_data *data);
+char					*build_request(const char *prefix, const char *suffix);
+int						set_passive_mode(t_data *data);
+void					free_double_tab(char **tab);
+void					redirect_data(int data_fd, int redir_fd);
+t_data					*singleton_data(t_data *data);
+void					sigint(int sig);
+void					error_connection(t_data *data);
+void					print_prompt(t_data *data, int print_prompt);
+void					free_cmd(t_cmd cmd);
+void					free_answer(t_answer answer);
+void					reinit_data(t_data *data);
+void					set_error_and_ret(t_data *data,
+	char *filename, char *message);
+int						create_socket(int port, char *av, char *s_addr);
+void					print_prompt(t_data *data, int print_prompt);
+void					handle_line(t_data *data, char *cmd);
+void					init_tab(t_command_func *tab);
 
-char			**ft_special_split(char const *s);
-int	parse_cmd(t_data *data, char *str);
-void	pem(char *filename, char *message);
-int		pemr(char *filename, char *message);
-void	remove_cr(char *str);
-t_answer	get_answer(t_data *data);
-char	*build_request(const char *prefix, const char *suffix);
-int	set_passive_mode(t_data *data);
-void	free_double_tab(char **tab);
-void	redirect_data(int data_fd, int redir_fd);
-t_data	*singleton_data(t_data *data);
-void	sigint(int sig);
-void	error_connection(t_data *data);
-void	print_prompt(t_data *data, int print_prompt);
-void	free_cmd(t_cmd cmd);
-void	free_answer(t_answer answer);
-void	reinit_data(t_data *data);
-void	set_error_and_ret(t_data *data, char *filename, char *message);
-int	create_socket(int port, char *av, char *s_addr);
-void	print_prompt(t_data *data, int print_prompt);
-void	handle_line(t_data *data, char *cmd);
-void	init_tab(t_command_func *tab);
-
-void	func_login(t_data *data);
-void	func_pwd(t_data *data);
-void	func_cd(t_data *data);
-void	func_type(t_data *data);
-void	func_ls(t_data *data);
-void	func_get(t_data *data);
-void	func_put(t_data *data);
-void	func_quit(t_data *data);
-void	func_size(t_data *data);
+void					func_login(t_data *data);
+void					func_pwd(t_data *data);
+void					func_cd(t_data *data);
+void					func_type(t_data *data);
+void					func_ls(t_data *data);
+void					func_get(t_data *data);
+void					func_put(t_data *data);
+void					func_quit(t_data *data);
+void					func_size(t_data *data);
 
 #endif
