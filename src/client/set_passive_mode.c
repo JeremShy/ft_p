@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_passive_mode.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/30 16:08:06 by jcamhi            #+#    #+#             */
+/*   Updated: 2017/08/30 16:10:19 by jcamhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <client.h>
 
-static char	*find_sub(const char *str, int *error)
+static char					*find_sub(const char *str, int *error)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	*sub;
 
 	i = 0;
@@ -24,7 +36,7 @@ static char	*find_sub(const char *str, int *error)
 	return (sub);
 }
 
-static char *get_ip(char **str)
+static char					*get_ip(char **str)
 {
 	char	*ret;
 
@@ -38,13 +50,13 @@ static char *get_ip(char **str)
 	return (ret);
 }
 
-static struct sockaddr_in	get_passive_port(t_data *data, const char *str, int *error)
+static struct sockaddr_in	get_passive_port(t_data *data,
+	const char *str, int *error, int i)
 {
-	int	i;
-	char	*sub;
-	char	**tab;
-	char	*ip;
-	struct sockaddr_in addr;
+	char				*sub;
+	char				**tab;
+	char				*ip;
+	struct sockaddr_in	addr;
 
 	addr.sin_family = AF_INET;
 	sub = find_sub(str, error);
@@ -52,7 +64,7 @@ static struct sockaddr_in	get_passive_port(t_data *data, const char *str, int *e
 		return (addr);
 	tab = ft_strsplit(sub, ',');
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 		i++;
 	if (i != 6)
 	{
@@ -68,7 +80,7 @@ static struct sockaddr_in	get_passive_port(t_data *data, const char *str, int *e
 	return (addr);
 }
 
-int		create_data_socket(struct sockaddr_in addr)
+int							create_data_socket(struct sockaddr_in addr)
 {
 	struct protoent		*proto;
 	int					ret;
@@ -79,18 +91,19 @@ int		create_data_socket(struct sockaddr_in addr)
 	if ((ret = socket(PF_INET, SOCK_STREAM, proto->p_proto)) == -1)
 		return (-1);
 	addr.sin_family = AF_INET;
-	if (connect(ret, (struct sockaddr*)(&addr), sizeof(struct sockaddr_in)) == -1)
+	if (connect(ret,
+		(struct sockaddr*)(&addr), sizeof(struct sockaddr_in)) == -1)
 		return (-1);
 	return (ret);
 }
 
-int	set_passive_mode(t_data *data)
+int							set_passive_mode(t_data *data)
 {
-	char	*send;
-	t_answer	answer;
-	struct sockaddr_in addr;
-	int	error;
-	int	socket;
+	char				*send;
+	t_answer			answer;
+	struct sockaddr_in	addr;
+	int					error;
+	int					socket;
 
 	send = build_request(NAME_RFC_PASSIVE, (data->cmd).cmd_tab[1]);
 	write(data->socket, send, ft_strlen(send));
@@ -102,7 +115,7 @@ int	set_passive_mode(t_data *data)
 	if (answer.code / 100 > 2)
 		data->error = 1;
 	error = 0;
-	addr = get_passive_port(data, answer.str, &error);
+	addr = get_passive_port(data, answer.str, &error, 0);
 	free_answer(answer);
 	if (error || ((socket = create_data_socket(addr)) == -1))
 	{
