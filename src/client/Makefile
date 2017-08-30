@@ -6,7 +6,7 @@
 #    By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:49:18 by jcamhi            #+#    #+#              #
-#    Updated: 2017/08/28 17:02:30 by JeremShy         ###   ########.fr        #
+#    Updated: 2017/08/30 16:14:37 by jcamhi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_NAME = 	main.c \
 							singleton.c \
 							error_connection.c \
 							signal.c \
+							ret.c \
 							func_login.c \
 							func_cd.c \
 							func_type.c \
