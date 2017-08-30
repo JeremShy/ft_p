@@ -30,6 +30,14 @@ void	remove_cr(char *str)
 	}
 }
 
+void	set_error_and_ret(t_data *data, char *filename, char *message)
+{
+	data->error = 1;
+	if (filename && message)
+		print_error_message(filename, message);
+	return ;
+}
+
 char	*build_request(const char *prefix, const char *suffix)
 {
 	char	*request;

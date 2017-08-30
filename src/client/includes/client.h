@@ -110,6 +110,7 @@ void	print_prompt(t_data *data, int print_prompt);
 void	free_cmd(t_cmd cmd);
 void	free_answer(t_answer answer);
 void	reinit_data(t_data *data);
+void	set_error_and_ret(t_data *data, char *filename, char *message);
 
 void	func_login(t_data *data);
 void	func_pwd(t_data *data);
