@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   func_pwd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/30 15:27:58 by jcamhi            #+#    #+#             */
+/*   Updated: 2017/08/30 15:30:11 by jcamhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <client.h>
 
 static char	*get_cwd_in_str(const char *str)
@@ -17,11 +29,11 @@ static char	*get_cwd_in_str(const char *str)
 	return (ft_strsub(str, i, len));
 }
 
-void	func_pwd(t_data *data)
+void		func_pwd(t_data *data)
 {
-	char	*send;
-	t_answer answer;
-	char	*cwd;
+	char		*send;
+	t_answer	answer;
+	char		*cwd;
 
 	send = build_request(NAME_RFC_PWD, "");
 	write(data->socket, send, ft_strlen(send));
@@ -35,13 +47,10 @@ void	func_pwd(t_data *data)
 		ft_printf("Remote directory: %s\n", cwd);
 		free(cwd);
 	}
-	else if (answer.code == 530)
-	{
-		ft_printf("Unable to determine remote directory\n");
-		data->error = 1;
-	}
 	else
 	{
+		if (answer.code == 530)
+			data->error = 1;
 		ft_printf("%s\n", answer.str);
 		data->error = 1;
 	}
