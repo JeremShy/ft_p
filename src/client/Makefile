@@ -6,11 +6,12 @@
 #    By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:49:18 by jcamhi            #+#    #+#              #
-#    Updated: 2017/08/30 16:14:37 by jcamhi           ###   ########.fr        #
+#    Updated: 2017/08/30 16:29:03 by jcamhi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_NAME = 	main.c \
+							main_2.c \
 							special_split.c \
 							parse_cmd.c \
 							utils.c \
