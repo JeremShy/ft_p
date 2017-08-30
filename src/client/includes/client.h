@@ -95,7 +95,7 @@ typedef void	(*t_command_func)(t_data*);
 
 char			**ft_special_split(char const *s);
 int	parse_cmd(t_data *data, char *str);
-void	print_error_message(char *filename, char *message);
+void	pem(char *filename, char *message);
 int		pemr(char *filename, char *message);
 void	remove_cr(char *str);
 t_answer	get_answer(t_data *data);

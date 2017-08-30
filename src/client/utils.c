@@ -1,16 +1,20 @@
 #include <client.h>
 
-void	print_error_message(char *filename, char *message)
+void	pem(char *filename, char *message)
 {
-	ft_putstr_fd(filename, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(message, 2);
+	if (filename)
+	{
+		ft_putstr_fd(filename, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (message)
+		ft_putstr_fd(message, 2);
 	ft_putstr_fd("\n", 2);
 }
 
 int		pemr(char *filename, char *message)
 {
-	print_error_message(filename, message);
+	pem(filename, message);
 	return (0);
 }
 
@@ -33,8 +37,8 @@ void	remove_cr(char *str)
 void	set_error_and_ret(t_data *data, char *filename, char *message)
 {
 	data->error = 1;
-	if (filename && message)
-		print_error_message(filename, message);
+	if (message)
+		pem(filename, message);
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/30 15:13:03 by jcamhi            #+#    #+#             */
-/*   Updated: 2017/08/30 15:21:03 by jcamhi           ###   ########.fr       */
+/*   Updated: 2017/08/30 15:24:36 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void		func_get(t_data *data)
 		return (set_error_and_ret(data, "Usage", "get remote [local]"));
 	data_socket = set_passive_mode(data);
 	if (data->error)
-		return (print_error_message("get", "Error while trying to open a \
-		passive connection\n"));
+		return (pem(NULL, "Error while trying to open a passive connection\n"));
 	if ((fd = get_fd(data, (data->cmd).cmd_tab[2])) == -1)
 	{
 		close(data->socket);
