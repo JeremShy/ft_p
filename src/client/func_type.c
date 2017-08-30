@@ -28,5 +28,6 @@ void	func_type(t_data *data)
 	ft_printf("%s\n", answer.str);
 	if (answer.code / 100 > 2)
 		data->error = 1;
+	free_answer(answer);
 	return ;
 }

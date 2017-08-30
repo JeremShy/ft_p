@@ -35,7 +35,7 @@ char	*build_request(const char *prefix, const char *suffix)
 	char	*request;
 
 	request = ft_strdup(prefix);
-	request = ft_strjoinaf1(request, " "); \
+	request = ft_strjoinaf1(request, " ");
 	if (suffix)
 		request = ft_strjoinaf1(request, suffix);
 	request = ft_strjoinaf1(request, "\r\n");

@@ -1,5 +1,11 @@
 #include <client.h>
 
+void	free_answer(t_answer answer)
+{
+	ft_strdel(&(answer.commentaire));
+	ft_strdel(&(answer.str));
+}
+
 static char	*get_com(char *str)
 {
 	int	i;
@@ -19,6 +25,8 @@ t_answer	get_answer(t_data *data)
 	int	i;
 
 	ret.error = -1;
+	ret.str = NULL;
+	ret.commentaire = NULL;
 	if ((i = get_next_line(data->socket, &str)) <= 0 || !str)
 	{
 		ret.error = (i < 0 ? -1 : 0);

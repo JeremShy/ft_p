@@ -31,23 +31,26 @@ void	func_login(t_data *data)
 	{
 		ft_printf("%s\n", answer.str);
 		data->error = 1;
+		free_answer(answer);
 		return ;
 	}
 	else if (answer.code == 230)
 	{
 		ft_putstr("Login successful.\n");
+		free_answer(answer);
 		return ;
 	}
 	else if (answer.code != 331)
 	{
 		ft_printf("%s\n", answer.str);
 		data->error = 1;
+		free_answer(answer);
 		return ;
 	}
 	send = build_request(NAME_RFC_PASS, password);
 	write(data->socket, send, ft_strlen(send));
 	free(send);
-	//TODO: free answer.
+	free_answer(answer);
 	answer = get_answer(data);
 	if (answer.error <= 0)
 		error_connection(data);
@@ -55,16 +58,19 @@ void	func_login(t_data *data)
 	{
 		ft_printf("%s\n", answer.str);
 		data->error = 1;
+		free_answer(answer);
 		return ;
 	}
 	else if (answer.code == 230)
 	{
 		ft_putstr("Login successful.\n");
+		free_answer(answer);
 		return ;
 	}
 	else
 	{
 		ft_printf("Error : %s\n", answer.commentaire);
+		free_answer(answer);
 		data->error = 1;
 		return ;
 	}

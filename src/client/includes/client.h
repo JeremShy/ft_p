@@ -68,8 +68,6 @@ typedef struct termios	t_termios;
 
 typedef struct	s_cmd {
 	int		cmd_nbr;
-	char	*cmd;
-	char	*args;
 	char	**cmd_tab;
 }				t_cmd;
 
@@ -109,6 +107,10 @@ t_data	*singleton_data(t_data *data);
 void	sigint(int sig);
 void	error_connection(t_data *data);
 void	print_prompt(t_data *data, int print_prompt);
+void	free_cmd(t_cmd cmd);
+void	free_answer(t_answer answer);
+void	reinit_data(t_data *data);
+
 void	func_login(t_data *data);
 void	func_pwd(t_data *data);
 void	func_cd(t_data *data);

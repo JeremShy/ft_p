@@ -103,6 +103,7 @@ int	set_passive_mode(t_data *data)
 		data->error = 1;
 	error = 0;
 	addr = get_passive_port(data, answer.str, &error);
+	free_answer(answer);
 	if (error || ((socket = create_data_socket(addr)) == -1))
 	{
 		data->error = 1;

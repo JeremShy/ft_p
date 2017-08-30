@@ -12,6 +12,8 @@ void	func_quit(t_data *data)
 	if (answer.error <= 0)
 		error_connection(data);
 	ft_printf("%s\n", answer.str);
+	free_answer(answer);
 	close(data->socket);
+	reinit_data(data);
 	exit(0);
 }

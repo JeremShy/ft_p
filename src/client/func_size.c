@@ -24,5 +24,6 @@ void	func_size(t_data *data)
 		return ;
 	}
 	ft_printf("Size of remote file %s: %d\n", (data->cmd).cmd_tab[1], ft_atoi(answer.commentaire));
+	free_answer(answer);
 	return ;
 }

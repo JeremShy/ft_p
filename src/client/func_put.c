@@ -35,7 +35,6 @@ void	func_put(t_data *data)
 	if ((fd = get_fd(data, (data->cmd).cmd_tab[1])) == -1)
 	{
 		close(data_socket);
-		ft_printf("%s\n", answer.str);
 		return ;
 	}
 	send = build_request(NAME_RFC_PUT, (data->cmd).cmd_tab[2]);
@@ -48,12 +47,15 @@ void	func_put(t_data *data)
 	if (answer.code / 100 > 2)
 	{
 		data->error = 1;
+		free_answer(answer);
 		return ;
 	}
 	redirect_data(fd, data_socket);
 	close(data_socket);
+	free_answer(answer);
 	answer = get_answer(data);
 	if (answer.error <= 0)
 		error_connection(data);
 	ft_printf("%s\n", answer.str);
+	free_answer(answer);
 }

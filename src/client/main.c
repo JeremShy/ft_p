@@ -61,6 +61,9 @@ void	init_tab(t_command_func *tab)
 void	reinit_data(t_data *data)
 {
 	data->error = 0;
+	if (data->cmd_str)
+		free(data->cmd_str);
+	free_cmd(data->cmd);
 }
 
 int main(int ac, char **av)
@@ -79,7 +82,6 @@ int main(int ac, char **av)
 	}
 	singleton_data(&data);
 	signal(SIGINT, sigint);
-	data.prompt = ft_strdup("ft_p$ ");
 	data.machine = av[1];
 	if ((data.port = ft_atoi(av[2])) <= 0)
 	{
@@ -87,6 +89,9 @@ int main(int ac, char **av)
 		ft_putstr_fd(": invalid port\n", 2);
 		return (2);
 	}
+	data.prompt = ft_strdup("ft_p$ ");
+	data.error = 0;
+	data.cmd_str = NULL;
 	if (!(data.socket = create_socket(data.port, av[0], data.machine)))
 		return (3);
 	answer = get_answer(&data);
@@ -94,14 +99,17 @@ int main(int ac, char **av)
 		error_connection(&data);
 	if (answer.error > 0)
 		ft_printf("%s\n", answer.str);
+	free_answer(answer);
 	data.tab = tab;
 	init_tab(data.tab);
 	print_prompt(&data, 0);
 	while(get_next_line(0, &cmd))
 	{
-		reinit_data(&data);
 		handle_line(&data, cmd);
 		print_prompt(&data, 1);
+		ft_strdel(&cmd);
+		reinit_data(&data);
 	}
+	free(data.prompt);
 	return (0);
 }

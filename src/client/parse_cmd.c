@@ -1,5 +1,11 @@
 #include <client.h>
 
+void	free_cmd(t_cmd cmd)
+{
+	if (cmd.cmd_tab)
+		free_double_tab(cmd.cmd_tab);
+}
+
 int	get_value(char *str)
 {
 	if (ft_strequ(str, NAME_LOGIN))
@@ -28,8 +34,7 @@ int	parse_cmd(t_data *data, char *str)
 	t_cmd	*cmd;
 
 	cmd = &(data->cmd);
-	data->cmd_str = str;
-	cmd->args = NULL;
+	data->cmd_str = ft_strdup(str);
 	if ((cmd->cmd_tab = ft_special_split(str)) == NULL)
 		return (0);
 	if ((cmd->cmd_nbr = get_value(cmd->cmd_tab[0])) == -1)

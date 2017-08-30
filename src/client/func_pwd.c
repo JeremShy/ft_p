@@ -21,6 +21,7 @@ void	func_pwd(t_data *data)
 {
 	char	*send;
 	t_answer answer;
+	char	*cwd;
 
 	send = build_request(NAME_RFC_PWD, "");
 	write(data->socket, send, ft_strlen(send));
@@ -29,17 +30,20 @@ void	func_pwd(t_data *data)
 	if (answer.error <= 0)
 		error_connection(data);
 	if (answer.code == 257)
-		ft_printf("Remote directory: %s\n", get_cwd_in_str(answer.commentaire));
+	{
+		cwd = get_cwd_in_str(answer.commentaire);
+		ft_printf("Remote directory: %s\n", cwd);
+		free(cwd);
+	}
 	else if (answer.code == 530)
 	{
 		ft_printf("Unable to determine remote directory\n");
 		data->error = 1;
-		return ;
 	}
 	else
 	{
 		ft_printf("%s\n", answer.str);
 		data->error = 1;
-		return ;
 	}
+	free_answer(answer);
 }

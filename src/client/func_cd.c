@@ -14,5 +14,6 @@ void	func_cd(t_data *data)
 	ft_printf("%s\n", answer.str);
 	if (answer.code != 250)
 		data->error = 1;
+	free_answer(answer);
 	return ;
 }
