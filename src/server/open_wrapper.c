@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_wrapper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jcamhi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/31 13:04:41 by jcamhi            #+#    #+#             */
-/*   Updated: 2017/08/31 13:04:42 by jcamhi           ###   ########.fr       */
+/*   Updated: 2017/08/31 13:09:46 by jcamhi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*get_prec(const char *path)
 {
-	int	i;
-	int	car;
+	int		i;
+	int		car;
 	char	*rez;
 
 	i = ft_strlen(path) - 1;
@@ -49,7 +49,7 @@ char	*get_current_dir(void)
 	return (rez);
 }
 
-int	free_and_ret(void *a, void *b, void *c, int ret)
+int		free_and_ret(void *a, void *b, void *c, int ret)
 {
 	if (a)
 		free(a);
@@ -60,7 +60,7 @@ int	free_and_ret(void *a, void *b, void *c, int ret)
 	return (ret);
 }
 
-int	can_be_oppened(const char *path, const char *exec_path)
+int		can_be_oppened(const char *path, const char *exec_path)
 {
 	char	*rez;
 	char	*prec;
@@ -84,10 +84,10 @@ int	can_be_oppened(const char *path, const char *exec_path)
 		return (free_and_ret(rez, next, prec, 0));
 }
 
-int open_wrapper(t_data *data, const char *path, int oflag, int mode)
+int		open_wrapper(t_data *data, const char *path, int oflag, int mode)
 {
-	int	fd;
-	struct stat stat;
+	int			fd;
+	struct stat	stat;
 
 	if (!path)
 		return (-1);
@@ -99,17 +99,11 @@ int open_wrapper(t_data *data, const char *path, int oflag, int mode)
 		fd = open(path, oflag);
 	if (fd != -1)
 	{
-		if (fstat(fd, &stat) == -1)
-		{
-			close(fd);
-			return (-1);
-		}
-		if ((stat.st_mode & S_IFMT) == S_IFDIR)
+		if ((fstat(fd, &stat) == -1) || ((stat.st_mode & S_IFMT) == S_IFDIR))
 		{
 			close(fd);
 			return (-1);
 		}
 	}
-	ft_printf("returning : %d\n", fd);
 	return (fd);
 }
