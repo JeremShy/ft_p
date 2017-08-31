@@ -1,2 +1,0 @@
-#!/bin/zsh
-cat <(echo -n "USER jeremshy\nPASS `cat pass`\n") - | nc h3lp.fr 21

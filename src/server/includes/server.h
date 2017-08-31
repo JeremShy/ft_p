@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/31 13:11:24 by jcamhi            #+#    #+#             */
+/*   Updated: 2017/08/31 13:11:49 by jcamhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SERVER_H
 # define SERVER_H
 
@@ -84,7 +96,7 @@ typedef struct	s_data {
 	int					pi_socket;
 	struct in_addr		local_addr;
 	int					type;
-	char			*exec_path;
+	char				*exec_path;
 }				t_data;
 
 typedef void	(*t_command_func)(t_data*);
@@ -101,11 +113,12 @@ void			close_data_connection(t_data	*data);
 int				init_accept(t_data *data);
 void			setret(t_data *data, int ret, char *com, int error);
 void			handle_sigchld(int p);
-int				open_wrapper(t_data *data, const char *path, int oflag, int mode);
-char	*get_current_dir(void);
-int	free_and_ret(void *a, void *b, void *c, int ret);
-DIR*	opendir_wrapper(t_data *data, const char *path);
-int	can_be_oppenedir(const char *path, const char *exec_path);
+int				open_wrapper(t_data *data, const char *path, int oflag,
+		int mode);
+char			*get_current_dir(void);
+int				free_and_ret(void *a, void *b, void *c, int ret);
+DIR				*opendir_wrapper(t_data *data, const char *path);
+int				can_be_oppenedir(const char *path, const char *exec_path);
 
 void			func_user(t_data *data);
 void			func_pass(t_data *data);
