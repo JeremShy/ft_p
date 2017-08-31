@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   func_stor.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcamhi <jcamhi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/31 13:04:31 by jcamhi            #+#    #+#             */
+/*   Updated: 2017/08/31 13:06:17 by jcamhi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <server.h>
 
 static void	fml(int *fd, char *ptr, char **oldptr)
@@ -47,8 +59,9 @@ void		func_stor(t_data *data)
 	cmd = *(data->cmd);
 	if (!cmd.argument)
 		return (setret(data, 550, " Failed to open file.", 1));
-	if ((fd = open_wrapper(data, cmd.argument, O_WRONLY | O_CREAT | O_TRUNC, 0666)) == -1)
-		 return (setret(data, 550, " Failed to open file.", 1));
+	if ((fd = open_wrapper(data,
+		cmd.argument, O_WRONLY | O_CREAT | O_TRUNC, 0666)) == -1)
+		return (setret(data, 550, " Failed to open file.", 1));
 	cs = init_accept(data);
 	ft_putstr_fd("150 Ok to send data.\r\n", data->pi_socket);
 	do_read_write(data, cs, fd);
